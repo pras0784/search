@@ -1,4 +1,5 @@
 .home_wrapper
+  //Search Form
   = form_tag '/', method: :get, class: 'form-horizontal' do
     .col-sm-6.col-sm-offset-3
       .form-group
@@ -8,36 +9,21 @@
   .clearfix
 
   .col-sm-4
+    //Iframe for Wikipedia Search Page
     %h4
       Wikipedia
     %iframe{src: "http://en.wikipedia.org/w/index.php?title=Special%3ASearch&profile=default&search=#{parse_keyword}&fulltext=Search", width: '100%', height: 700}
+
   .col-sm-4
+    //Iframe for IMDB Search Page
     %h4
       IMDB
     - html = Nokogiri::HTML(open("http://imdb.com/find?q=#{parse_keyword}&s=all"))
     %iframe{srcdoc: html, height: 700, width: '100%'}
+
+
   .col-sm-4
+    //Iframe for Rotten Tomatoes Search Page
     %h4
       Rotten Tomatoes
     %iframe{src: "http://www.rottentomatoes.com/search/?search=#{parse_keyword}&sitesearch=rt", height: 700, width: '100%'}
-
-
-:javascript
-  $("#k").autocomplete({
-    minLength: 0,
-    delay: 5,
-    source: "suggest.json",
-    focus: function( event, ui ) {
-      $(this).val( ui.item.label );
-        return false;
-      },
-    select: function( event, ui ) {
-      $(this).val( ui.item.label );
-        return false;
-      }
-  }).data("uiAutocomplete")._renderItem = function( ul, item ) {
-      return $("<li></li>")
-      .data( "item.autocomplete", item )
-      .append( "<a>" + (item.img?"<img class='imdbImage' src='" + item.img + "' />":"") + "<span class='imdbTitle'>" + item.label + "</span>" + (item.cast?"<br /><span class='imdbCast'>" + item.cast + "</span>":"") + "<div class='clear'></div></a>" )
-      .appendTo( ul );
-  };
