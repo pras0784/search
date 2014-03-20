@@ -1,0 +1,25 @@
+.home_wrapper
+  = form_tag '/', method: :get, class: 'form-horizontal' do
+    .col-sm-6.col-sm-offset-3
+      .form-group
+        %label.control-label.col-sm-2 Search
+        .col-sm-10
+          = text_field_tag :k, params[:k], class: 'form-control'
+  .clearfix
+
+  .col-sm-4
+    .row
+      %h4
+        Wikipedia
+      %iframe{src: "http://en.wikipedia.org/w/index.php?title=Special%3ASearch&profile=default&search=#{CGI::escape params[:k]}&fulltext=Search", width: '100%', height: 700}
+  .col-sm-4
+    .row
+      %h4
+        IMDB
+      - html = Nokogiri::HTML(open("http://imdb.com/find?q=#{CGI::escape params[:k]}&s=all"))
+      %iframe{srcdoc: html, height: 700, width: '100%'}
+  .col-sm-4
+    .row
+      %h4
+        Rotten Tomatoes
+      %iframe{src: "http://www.rottentomatoes.com/search/?search=#{params[:k]}&sitesearch=rt", height: 700, width: '100%'}
