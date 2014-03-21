@@ -28,7 +28,7 @@
               - values.each do |item|
                 %li.list-group-item
                   %span.pull-left
-                    = image_tag item[:img]
+                    = image_tag proxy_img_path(url: item[:img])
                   = link_to item[:title], 'http://imdb.com' + item[:url].to_s, target: '_blank'
     - else
       Enter keyword to display results
