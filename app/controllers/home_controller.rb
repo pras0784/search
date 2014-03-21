@@ -11,4 +11,11 @@ class HomeController < ApplicationController
     results = JSON.parse(results.string)
     render json: results
   end
+
+  def proxy_img
+    #Proxy route for image to avoid broken images
+    url = URI.parse params[:url]
+    result = Net::HTTP.get_response(url)
+    send_data result.body, type: result.content_type, disposition: 'inline'
+  end
 end
