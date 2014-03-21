@@ -13,13 +13,16 @@
     %h4
       Wikipedia
     .panel-new
-      %ul.list-group.results
-        - @wikipedia.each do |item|
-          %li.list-group-item
-            = link_to item[:title], item[:url], class: 'wiki'
-            %p= item[:desc]
-            %p
-              %small= item[:data]
+      - if @wikipedia.any?
+        %ul.list-group.results
+          - @wikipedia.each do |item|
+            %li.list-group-item
+              = link_to item[:title], item[:url], class: 'wiki'
+              %p= item[:desc]
+              %p
+                %small= item[:data]
+      - else
+        Enter keyword to display results
 
   .col-sm-4
     //Modified Scaper for IMDB Search Page
