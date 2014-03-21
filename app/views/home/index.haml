@@ -18,17 +18,20 @@
     //Modified Scaper for IMDB Search Page
     %h4
       IMDB
-    - @imdb.each do |items|
-      - items.each_pair do |key, values|
-        .panel.panel-default
-          %h5
-            = key
-          %ul.list-group.results
-            - values.each do |item|
-              %li.list-group-item
-                %span.pull-left
-                  = image_tag item[:img]
-                = link_to item[:title], 'http://imdb.com' + item[:url].to_s, target: '_blank'
+    - if @imdb.any?
+      - @imdb.each do |items|
+        - items.each_pair do |key, values|
+          .panel.panel-default
+            %h5
+              = key
+            %ul.list-group.results
+              - values.each do |item|
+                %li.list-group-item
+                  %span.pull-left
+                    = image_tag item[:img]
+                  = link_to item[:title], 'http://imdb.com' + item[:url].to_s, target: '_blank'
+    - else
+      Enter keyword to display results
 
   .col-sm-4
     //Iframe for Rotten Tomatoes Search Page
