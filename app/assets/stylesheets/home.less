@@ -1,5 +1,28 @@
 .home_wrapper {
   padding-top: 50px;
+  .panel {
+    h5 {
+      color: #a58500;
+      margin-left: 5px;
+    }
+  }
+  .results {
+    li.list-group-item {
+      &:nth-child(even) {
+        background-color: #f6f6f5;
+      }
+      display: inline-block;
+      width: 100%;
+      padding: 2px 5px;
+      img {
+        margin-right: 5px;
+      }
+      > a {
+        font-size: 13px;
+        font-family: Verdana, Arial, sans-serif;
+      }
+    }
+  }
 }
 
 //styles for autocomplete

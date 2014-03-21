@@ -17,6 +17,14 @@ class HomeController < ApplicationController
     render json: results
   end
 
+
+  def proxy_img
+    #Proxy route for image to avoid broken images
+    url = URI.parse params[:url]
+    result = Net::HTTP.get_response(url)
+    send_data result.body, type: result.content_type, disposition: 'inline'
+  end
+
   private
 
   def search_imdb(key)
@@ -45,5 +53,4 @@ class HomeController < ApplicationController
       @imdb << results
     end
   end
-
 end
