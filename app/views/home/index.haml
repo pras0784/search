@@ -12,18 +12,30 @@
     //Iframe for Wikipedia Search Page
     %h4
       Wikipedia
-    %iframe{src: "http://en.wikipedia.org/w/index.php?title=Special%3ASearch&profile=default&search=#{parse_keyword}&fulltext=Search", width: '100%', height: 700}
+    %iframe{src: wikipedia_url, width: '100%', height: 700 }
 
   .col-sm-4
-    //Iframe for IMDB Search Page
+    //Modified Scaper for IMDB Search Page
     %h4
       IMDB
-    - html = Nokogiri::HTML(open("http://imdb.com/find?q=#{parse_keyword}&s=all"))
-    %iframe{srcdoc: html, height: 700, width: '100%'}
-
+    - if @imdb.any?
+      - @imdb.each do |items|
+        - items.each_pair do |key, values|
+          .panel.panel-default
+            %h5
+              = key
+            %ul.list-group.results
+              - values.each do |item|
+                %li.list-group-item
+                  %span.pull-left
+                    = image_tag item[:img]
+                  = link_to item[:title], 'http://imdb.com' + item[:url].to_s, target: '_blank'
+    - else
+      Enter keyword to display results
 
   .col-sm-4
     //Iframe for Rotten Tomatoes Search Page
     %h4
       Rotten Tomatoes
-    %iframe{src: "http://www.rottentomatoes.com/search/?search=#{parse_keyword}&sitesearch=rt", height: 700, width: '100%'}
+    %iframe{src: rotten_tomatoes_url, height: 700, width: '100%'}
+
