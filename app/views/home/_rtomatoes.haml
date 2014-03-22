@@ -1,0 +1,17 @@
+// Rotten Tomatoes Template
+.panel-new
+  - if @rtomatoes.any?
+    - @rtomatoes.each do |items|
+      - items.each_pair do |key, values|
+        .panel.panel-default
+          %h5
+            = key
+          %ul.list-group.results
+            - values.each do |item|
+              %li.list-group-item
+                %span.pull-left
+                  = image_tag proxy_img_path(url: item[:img]) if item[:img]
+                = raw item[:html]
+
+  - else
+    No Result found.

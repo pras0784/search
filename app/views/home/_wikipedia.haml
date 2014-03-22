@@ -1,0 +1,12 @@
+//Template for Wikipedia
+.panel-new
+  - if @wikipedia.any?
+    %ul.list-group.results
+      - @wikipedia.each do |item|
+        %li.list-group-item
+          = link_to item[:title], 'http://en.wikipedia.org' + item[:url], class: 'wiki',target: '_blank'
+          %p= item[:desc]
+          %p
+            %small= item[:data]
+  - else
+    No Result found.

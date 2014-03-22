@@ -5,62 +5,23 @@
       .form-group
         %label.control-label.col-sm-2 Search
         .col-sm-10
-          = text_field_tag :k, params[:k], class: 'form-control'
+          = text_field_tag :k, params[:k], class: 'form-control', placeholder: 'Enter a keyword'
   .clearfix
 
   .col-sm-4
-    //Iframe for Wikipedia Search Page
     %h4
       Wikipedia
-    .panel-new
-      - if @wikipedia.any?
-        %ul.list-group.results
-          - @wikipedia.each do |item|
-            %li.list-group-item
-              = link_to item[:title], item[:url], class: 'wiki'
-              %p= item[:desc]
-              %p
-                %small= item[:data]
-      - else
-        Enter keyword to display results
+    %hr
+    = render 'wikipedia'
 
   .col-sm-4
-    //Modified Scaper for IMDB Search Page
     %h4
       IMDB
-    .panel-new
-      - if @imdb.any?
-        - @imdb.each do |items|
-          - items.each_pair do |key, values|
-            .panel.panel-default
-              %h5
-                = key
-              %ul.list-group.results
-                - values.each do |item|
-                  %li.list-group-item
-                    %span.pull-left
-                      = image_tag proxy_img_path(url: item[:img]) if item[:img]
-                    = link_to item[:title], 'http://imdb.com' + item[:url].to_s, target: '_blank'
-      - else
-        Enter keyword to display results
+    %hr
+    = render 'imdb'
 
   .col-sm-4
-    //Iframe for Rotten Tomatoes Search Page
     %h4
       Rotten Tomatoes
-    .panel-new
-      - if @rt.any?
-        - @rt.each do |items|
-          - items.each_pair do |key, values|
-            .panel.panel-default
-              %h5
-                = key
-              %ul.list-group.results
-                - values.each do |item|
-                  %li.list-group-item
-                    %span.pull-left
-                      = image_tag proxy_img_path(url: item[:img]) if item[:img]
-                    = raw item[:html]
-
-      - else
-        Enter keyword to display results
+    %hr
+    = render 'rtomatoes'

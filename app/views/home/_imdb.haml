@@ -1,0 +1,15 @@
+.panel-new
+  - if @imdb.any?
+    - @imdb.each do |items|
+      - items.each_pair do |key, values|
+        .panel.panel-default
+          %h5
+            = key
+          %ul.list-group.results
+            - values.each do |item|
+              %li.list-group-item
+                %span.pull-left
+                  = image_tag proxy_img_path(url: item[:img]) if item[:img]
+                = link_to item[:title], 'http://imdb.com' + item[:url].to_s, target: '_blank'
+  - else
+    No Result found.
